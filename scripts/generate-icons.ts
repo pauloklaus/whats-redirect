@@ -14,9 +14,9 @@ const iconPaths =
   sourceSvg
 
 const ogLocales: Record<string, string> = {
-  en: 'WhatsApp redirect PWA',
-  pt: 'Redirecionador WhatsApp PWA',
-  es: 'Redireccionador WhatsApp PWA',
+  en: 'WhatsApp redirect',
+  pt: 'Redirecionador WhatsApp',
+  es: 'Redireccionador WhatsApp',
 }
 
 const OG_FONT_FAMILY = 'DejaVu Sans, sans-serif'
@@ -71,7 +71,6 @@ function buildOgImage(subtitle: string): string {
   </svg>
   <text x="620" y="250" fill="#1a1a1a" font-family="${OG_FONT_FAMILY}" font-size="72" font-weight="700">WhatsRedirect</text>
   <text x="620" y="340" fill="#666666" font-family="${OG_FONT_FAMILY}" font-size="36">${subtitle}</text>
-  <text x="620" y="420" fill="#25D366" font-family="${OG_FONT_FAMILY}" font-size="28">whats.pauloklaus.com.br</text>
 </svg>`
 }
 
