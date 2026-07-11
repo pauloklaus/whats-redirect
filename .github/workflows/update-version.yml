@@ -1,0 +1,88 @@
+name: Version
+
+on:
+  pull_request:
+    types: [opened, closed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  bump-on-open:
+    name: Bump version on PR open
+    if: |
+      github.event.action == 'opened' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Bump version from PR title
+        run: node scripts/update-version.js "${{ github.event.pull_request.title }}"
+
+      - name: Commit and push
+        run: |
+          git diff --quiet package.json package-lock.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "chore: increment version based on PR title"
+          git push origin HEAD:${{ github.head_ref }}
+
+  tag-on-merge:
+    name: Tag release on merge
+    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout merge commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Create git tag
+        env:
+          COMMIT_MESSAGE: ${{ github.event.pull_request.title }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+        run: |
+          SHOULD_TAG=$(node scripts/update-version.js "$COMMIT_MESSAGE" --should-tag)
+          if [ "$SHOULD_TAG" != "yes" ]; then
+            echo "No release tag for this PR."
+            exit 0
+          fi
+
+          VERSION=$(node -pe "require('./package.json').version")
+
+          git fetch origin --tags
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            EXISTING_SHA=$(git rev-parse "v$VERSION^{commit}")
+            if [ "$EXISTING_SHA" != "$MERGE_SHA" ]; then
+              echo "Tag v$VERSION already exists at $EXISTING_SHA."
+              exit 1
+            fi
+            echo "Tag v$VERSION already exists at merge commit, skipping."
+            exit 0
+          fi
+
+          git tag "v$VERSION" "$MERGE_SHA"
+          git push origin "refs/tags/v$VERSION"

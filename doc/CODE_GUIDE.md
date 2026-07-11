@@ -148,4 +148,15 @@ type(scope): short imperative summary
 
 ## Releases
 
-Cloudflare Pages deploys on every push to `main`. Prefer **squash merge** so `main` keeps a clear PR title.
+Cloudflare Pages deploys on every push to `main`. The version is bumped automatically when a PR is **opened** (commit on the PR branch), so merge triggers a single deploy with the correct version.
+
+| PR title prefix               | Version bump |
+| ----------------------------- | ------------ |
+| `fix:`, `refactor:`, `style:` | patch        |
+| `feat:`                       | minor        |
+| `breaking:`                   | major        |
+| `docs:`, `chore:`, `ci:`, …   | none         |
+
+The Version workflow reads the PR title and runs `npm version` accordingly. After merge, it creates the `vX.Y.Z` git tag without an extra commit on `main`.
+
+Use a release prefix in the **PR title** before opening (or immediately after, then re-open). Prefer **squash merge** so `main` keeps the same title.
