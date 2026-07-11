@@ -22,8 +22,8 @@ describe('sortCountries', () => {
       { iso2: 'AR', dialCode: '54' },
     ]
 
-    expect(sortCountries(countries, 'ZZ').map((country) => country.iso2)).toEqual(
-      ['AR', 'US'],
-    )
+    expect(
+      sortCountries(countries, 'ZZ').map((country) => country.iso2),
+    ).toEqual(['AR', 'US'])
   })
 })
