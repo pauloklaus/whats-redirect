@@ -1,0 +1,7 @@
+export { DEFAULT_LOCALE } from './defaultLocale'
+export { SUPPORTED_LOCALES } from './supportedLocales'
+export { APP_NAME } from './appName'
+export { APP_VERSION_META_NAME } from './appVersionMetaName'
+export { SITE_URL } from './siteUrl'
+export { GITHUB_REPO_URL } from './githubRepoUrl'
+export { WHATSAPP_URL_PREFIX } from './whatsappUrlPrefix'

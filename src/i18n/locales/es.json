@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "description": "Inicia conversaciones de WhatsApp sin guardar contactos. Ingresa un número de teléfono y abre la conversación al instante.",
+    "ogImage": "/icons/og-image-es.png",
+    "ogLocale": "es_ES"
+  },
+  "home": {
+    "title": "WhatsApp Redirect",
+    "description": "Permite iniciar conversaciones en WhatsApp sin necesidad de guardar contactos en tu agenda.",
+    "phoneLabel": "Número de teléfono",
+    "phonePlaceholder": "Ingresa el número",
+    "startChat": "Iniciar conversación"
+  },
+  "install": {
+    "button": "Instalar",
+    "ariaLabel": "Instalar aplicación"
+  },
+  "footer": {
+    "github": "GitHub"
+  },
+  "aria": {
+    "countryCode": "Código de país",
+    "phoneNumber": "Número de teléfono"
+  }
+}

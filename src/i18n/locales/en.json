@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "description": "Start WhatsApp chats without saving contacts. Enter a phone number and open the conversation instantly.",
+    "ogImage": "/icons/og-image-en.png",
+    "ogLocale": "en_US"
+  },
+  "home": {
+    "title": "WhatsApp Redirect",
+    "description": "Start WhatsApp chats without saving contacts to your address book.",
+    "phoneLabel": "Phone number",
+    "phonePlaceholder": "Enter phone number",
+    "startChat": "Start chat"
+  },
+  "install": {
+    "button": "Install",
+    "ariaLabel": "Install app"
+  },
+  "footer": {
+    "github": "GitHub"
+  },
+  "aria": {
+    "countryCode": "Country code",
+    "phoneNumber": "Phone number"
+  }
+}

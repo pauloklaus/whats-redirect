@@ -1,0 +1,260 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { usePhoneInput, usePwaInstall } from '@/composables'
+import { APP_NAME } from '@/config'
+import AppFooter from './AppFooter.vue'
+import ActionIcon from './ActionIcon.vue'
+import installIcon from '../assets/icons/install.svg'
+import chatIcon from '../assets/icons/chat.svg'
+
+const { t } = useI18n()
+const { phoneDisplay, isValid, updatePhone, redirect } = usePhoneInput()
+const { canInstall, install } = usePwaInstall()
+
+function onPhoneInput(event: Event): void {
+  const input = event.target as HTMLInputElement
+  updatePhone(input.value)
+}
+
+function onStartChat(): void {
+  if (isValid.value) {
+    redirect()
+  }
+}
+</script>
+
+<template>
+  <div class="redirect-panel">
+    <header class="redirect-panel__header">
+      <div class="redirect-panel__brand">
+        <img
+          class="redirect-panel__logo"
+          src="/icons/apple-touch-icon.png"
+          width="36"
+          height="36"
+          :alt="APP_NAME"
+        />
+        <span class="redirect-panel__brand-name">{{ APP_NAME }}</span>
+      </div>
+
+      <button
+        v-if="canInstall"
+        class="redirect-panel__install redirect-panel__action-btn"
+        type="button"
+        :aria-label="t('install.ariaLabel')"
+        @click="install"
+      >
+        <ActionIcon :src="installIcon" />
+        <span>{{ t('install.button') }}</span>
+      </button>
+    </header>
+
+    <main class="redirect-panel__content">
+      <h1 class="redirect-panel__title">{{ t('home.title') }}</h1>
+      <p class="redirect-panel__description">{{ t('home.description') }}</p>
+
+      <label class="redirect-panel__field">
+        <span class="redirect-panel__label">{{ t('home.phoneLabel') }}</span>
+        <div class="redirect-panel__phone-group">
+          <span
+            class="redirect-panel__country-code"
+            :aria-label="t('aria.countryCode')"
+            >+55</span
+          >
+          <input
+            :value="phoneDisplay"
+            type="tel"
+            class="redirect-panel__phone-input"
+            :placeholder="t('home.phonePlaceholder')"
+            maxlength="15"
+            autofocus
+            :aria-label="t('aria.phoneNumber')"
+            @input="onPhoneInput"
+            @keyup.enter="onStartChat"
+          />
+        </div>
+      </label>
+
+      <button
+        class="redirect-panel__start redirect-panel__action-btn"
+        type="button"
+        :disabled="!isValid"
+        @click="onStartChat"
+      >
+        <ActionIcon :src="chatIcon" />
+        <span>{{ t('home.startChat') }}</span>
+      </button>
+    </main>
+
+    <AppFooter />
+  </div>
+</template>
+
+<style scoped>
+.redirect-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4.5rem 1.5rem 2.75rem;
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.redirect-panel__header {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.redirect-panel__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.redirect-panel__logo {
+  display: block;
+  border-radius: 0.5rem;
+}
+
+.redirect-panel__brand-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.redirect-panel__install {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: #25d366;
+  border-radius: 0.375rem;
+  transition: background 0.15s;
+}
+
+.redirect-panel__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.redirect-panel__action-btn :deep(.action-icon) {
+  filter: brightness(0) invert(1);
+}
+
+.redirect-panel__install:hover {
+  background: #1ebe57;
+}
+
+.redirect-panel__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 28rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.redirect-panel__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.redirect-panel__description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #666;
+}
+
+.redirect-panel__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.redirect-panel__label {
+  font-size: 0.875rem;
+  color: #757575;
+  text-align: left;
+}
+
+.redirect-panel__phone-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color 0.15s;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+}
+
+.redirect-panel__phone-group:focus-within {
+  border-color: #25d366;
+}
+
+.redirect-panel__country-code {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #128c7e;
+  background: #e8f5e9;
+  border-right: 1px solid #e0e0e0;
+  user-select: none;
+}
+
+.redirect-panel__phone-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.875rem 1rem;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.redirect-panel__phone-input::placeholder {
+  color: #9e9e9e;
+}
+
+.redirect-panel__start {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #25d366;
+  border-radius: 0.5rem;
+  transition: background 0.15s;
+}
+
+.redirect-panel__start:hover:not(:disabled) {
+  background: #1ebe57;
+}
+
+.redirect-panel__start:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+</style>

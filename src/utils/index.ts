@@ -1,0 +1,5 @@
+export { stripDigits } from './stripDigits'
+export { formatPhoneNumberBr } from './formatPhoneNumberBr'
+export { isValidBrazilPhone } from './isValidBrazilPhone'
+export { buildWhatsAppUrl } from './buildWhatsAppUrl'
+export { readLoadedAppVersion } from './readLoadedAppVersion'
