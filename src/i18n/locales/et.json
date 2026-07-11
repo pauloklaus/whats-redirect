@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "description": "Alusta WhatsApp vestlusi ilma kontaktide salvestamiseta. Sisesta telefoninumber ja ava vestlus kohe.",
+    "ogImage": "/icons/og-image-et.png",
+    "ogLocale": "et_EE"
+  },
+  "home": {
+    "title": "WhatsApp Redirect",
+    "description": "Alusta WhatsApp vestlusi ilma kontaktide salvestamiseta aadressiraamatusse.",
+    "phoneLabel": "Telefoninumber",
+    "phonePlaceholder": "Sisesta number",
+    "startChat": "Alusta vestlust"
+  },
+  "install": {
+    "button": "Installi",
+    "ariaLabel": "Installi rakendus"
+  },
+  "footer": {
+    "github": "GitHub"
+  },
+  "aria": {
+    "countrySelect": "Riik",
+    "phoneNumber": "Telefoninumber"
+  }
+}

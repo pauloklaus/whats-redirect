@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "description": "Avvia chat WhatsApp senza salvare i contatti. Inserisci un numero di telefono e apri la conversazione all'istante.",
+    "ogImage": "/icons/og-image-it.png",
+    "ogLocale": "it_IT"
+  },
+  "home": {
+    "title": "WhatsApp Redirect",
+    "description": "Avvia chat WhatsApp senza dover salvare i contatti nella rubrica.",
+    "phoneLabel": "Numero di telefono",
+    "phonePlaceholder": "Inserisci il numero",
+    "startChat": "Avvia chat"
+  },
+  "install": {
+    "button": "Installa",
+    "ariaLabel": "Installa app"
+  },
+  "footer": {
+    "github": "GitHub"
+  },
+  "aria": {
+    "countrySelect": "Paese",
+    "phoneNumber": "Numero di telefono"
+  }
+}

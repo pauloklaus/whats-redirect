@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "description": "无需保存联系人即可开启 WhatsApp 聊天。输入电话号码，即可立即打开对话。",
+    "ogImage": "/icons/og-image-zh.png",
+    "ogLocale": "zh_CN"
+  },
+  "home": {
+    "title": "WhatsApp Redirect",
+    "description": "无需将联系人保存到通讯录，即可开启 WhatsApp 聊天。",
+    "phoneLabel": "电话号码",
+    "phonePlaceholder": "输入号码",
+    "startChat": "开始聊天"
+  },
+  "install": {
+    "button": "安装",
+    "ariaLabel": "安装应用"
+  },
+  "footer": {
+    "github": "GitHub"
+  },
+  "aria": {
+    "countrySelect": "国家/地区",
+    "phoneNumber": "电话号码"
+  }
+}

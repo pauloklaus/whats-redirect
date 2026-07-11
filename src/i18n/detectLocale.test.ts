@@ -31,8 +31,26 @@ describe('detectLocale', () => {
     expect(detectLocale()).toBe('en')
   })
 
-  it('falls back to english when no candidate matches', () => {
+  it('maps french candidates to fr', () => {
     mockNavigatorLanguages(['fr-FR'])
+    expect(detectLocale()).toBe('fr')
+  })
+
+  it('maps german candidates to de', () => {
+    mockNavigatorLanguages(['de-DE'])
+    expect(detectLocale()).toBe('de')
+  })
+
+  it('maps chinese candidates to zh-CN', () => {
+    mockNavigatorLanguages(['zh-CN'])
+    expect(detectLocale()).toBe('zh-CN')
+
+    mockNavigatorLanguages(['zh-TW'])
+    expect(detectLocale()).toBe('zh-CN')
+  })
+
+  it('falls back to english when no candidate matches', () => {
+    mockNavigatorLanguages(['ja-JP'])
     expect(detectLocale()).toBe('en')
   })
 

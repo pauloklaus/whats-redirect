@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "description": "WhatsApp-Chats starten, ohne Kontakte zu speichern. Geben Sie eine Telefonnummer ein und öffnen Sie das Gespräch sofort.",
+    "ogImage": "/icons/og-image-de.png",
+    "ogLocale": "de_DE"
+  },
+  "home": {
+    "title": "WhatsApp Redirect",
+    "description": "Starten Sie WhatsApp-Chats, ohne Kontakte in Ihrem Adressbuch zu speichern.",
+    "phoneLabel": "Telefonnummer",
+    "phonePlaceholder": "Nummer eingeben",
+    "startChat": "Chat starten"
+  },
+  "install": {
+    "button": "Installieren",
+    "ariaLabel": "App installieren"
+  },
+  "footer": {
+    "github": "GitHub"
+  },
+  "aria": {
+    "countrySelect": "Land",
+    "phoneNumber": "Telefonnummer"
+  }
+}

@@ -17,6 +17,12 @@ const ogLocales: Record<string, string> = {
   en: 'WhatsApp redirect',
   pt: 'Redirecionador WhatsApp',
   es: 'Redireccionador WhatsApp',
+  fr: 'Redirection WhatsApp',
+  de: 'WhatsApp-Weiterleitung',
+  it: 'Reindirizzamento WhatsApp',
+  et: 'WhatsApp suunamine',
+  ru: 'Перенаправление WhatsApp',
+  zh: 'WhatsApp 跳转',
 }
 
 const OG_FONT_FAMILY = 'DejaVu Sans, sans-serif'
