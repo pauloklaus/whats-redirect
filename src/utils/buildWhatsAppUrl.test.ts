@@ -13,5 +13,8 @@ describe('buildWhatsAppUrl', () => {
     expect(buildWhatsAppUrl('1', '5551234567')).toBe(
       'https://wa.me/15551234567',
     )
+    expect(buildWhatsAppUrl('49', '1212121212')).toBe(
+      'https://wa.me/491212121212',
+    )
   })
 })

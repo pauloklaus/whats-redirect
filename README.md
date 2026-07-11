@@ -59,12 +59,12 @@ Copy the example file and adjust values:
 cp .env.example .env
 ```
 
-| Variable                    | Description                                                |
-| --------------------------- | ---------------------------------------------------------- |
-| `VITE_APP_NAME`             | App name shown in the UI, document title, and PWA manifest |
-| `VITE_GITHUB_REPO_URL`      | Repository URL linked from the footer                      |
-| `VITE_SITE_URL`             | Canonical site URL (Open Graph and meta tags)              |
-| `VITE_WHATSAPP_URL_PREFIX`  | WhatsApp API URL prefix (default includes country code 55) |
+| Variable                   | Description                                                |
+| -------------------------- | ---------------------------------------------------------- |
+| `VITE_APP_NAME`            | App name shown in the UI, document title, and PWA manifest |
+| `VITE_GITHUB_REPO_URL`     | Repository URL linked from the footer                      |
+| `VITE_SITE_URL`            | Canonical site URL (Open Graph and meta tags)              |
+| `VITE_WHATSAPP_URL_PREFIX` | WhatsApp API URL prefix (default includes country code 55) |
 
 Restart the dev server after changing `.env`.
 
@@ -100,11 +100,11 @@ make coverage
 
 The project is deployed to Cloudflare Pages at [whats.pauloklaus.com.br](https://whats.pauloklaus.com.br).
 
-| Setting                | Value                      |
-| ---------------------- | -------------------------- |
-| Build command          | `npm run build`            |
-| Build output directory | `dist`                     |
-| Node.js version        | `24`                       |
+| Setting                | Value           |
+| ---------------------- | --------------- |
+| Build command          | `npm run build` |
+| Build output directory | `dist`          |
+| Node.js version        | `24`            |
 
 SPA routing is handled by `public/_redirects` (`/* → /index.html`).
 
