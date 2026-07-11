@@ -1,19 +1,58 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { usePhoneInput, usePwaInstall } from '@/composables'
 import { APP_NAME } from '@/config'
+import { countryFlag, getCountryName } from '@/utils'
 import AppFooter from './AppFooter.vue'
 import ActionIcon from './ActionIcon.vue'
 import installIcon from '../assets/icons/install.svg'
 import chatIcon from '../assets/icons/chat.svg'
 
-const { t } = useI18n()
-const { phoneDisplay, isValid, updatePhone, redirect } = usePhoneInput()
+const { t, locale } = useI18n()
+const {
+  countryIso2,
+  sortedCountries,
+  phoneDisplay,
+  isValid,
+  updatePhone,
+  setCountry,
+  redirect,
+} = usePhoneInput()
 const { canInstall, install } = usePwaInstall()
+
+const countryKeyBuffer = ref('')
+let countryKeyTimeout: ReturnType<typeof setTimeout> | undefined
 
 function onPhoneInput(event: Event): void {
   const input = event.target as HTMLInputElement
   updatePhone(input.value)
+}
+
+function onCountryChange(event: Event): void {
+  const select = event.target as HTMLSelectElement
+  setCountry(select.value)
+}
+
+function onCountryKeydown(event: KeyboardEvent): void {
+  if (event.ctrlKey || event.metaKey || event.altKey) return
+  if (event.key.length !== 1 || !/^[a-z]$/i.test(event.key)) return
+
+  event.preventDefault()
+
+  countryKeyBuffer.value += event.key.toUpperCase()
+  clearTimeout(countryKeyTimeout)
+  countryKeyTimeout = setTimeout(() => {
+    countryKeyBuffer.value = ''
+  }, 800)
+
+  const match = sortedCountries.value.find((country) =>
+    country.iso2.startsWith(countryKeyBuffer.value),
+  )
+
+  if (match) {
+    setCountry(match.iso2)
+  }
 }
 
 function onStartChat(): void {
@@ -56,11 +95,23 @@ function onStartChat(): void {
       <label class="redirect-panel__field">
         <span class="redirect-panel__label">{{ t('home.phoneLabel') }}</span>
         <div class="redirect-panel__phone-group">
-          <span
-            class="redirect-panel__country-code"
-            :aria-label="t('aria.countryCode')"
-            >+55</span
+          <select
+            class="redirect-panel__country-select"
+            :value="countryIso2"
+            :aria-label="t('aria.countrySelect')"
+            @change="onCountryChange"
+            @keydown="onCountryKeydown"
           >
+            <option
+              v-for="country in sortedCountries"
+              :key="country.iso2"
+              :value="country.iso2"
+              :title="getCountryName(country.iso2, locale)"
+            >
+              {{ countryFlag(country.iso2) }} +{{ country.dialCode }}
+              {{ country.iso2 }}
+            </option>
+          </select>
           <input
             :value="phoneDisplay"
             type="tel"
@@ -211,16 +262,24 @@ function onStartChat(): void {
   border-color: #25d366;
 }
 
-.redirect-panel__country-code {
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  font-size: 1.25rem;
+.redirect-panel__country-select {
+  flex: 0 1 auto;
+  max-width: 38%;
+  min-width: 6.75rem;
+  padding: 0.875rem 0.75rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #128c7e;
   background: #e8f5e9;
+  border: none;
   border-right: 1px solid #e0e0e0;
-  user-select: none;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23128c7e' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding-right: 1.75rem;
 }
 
 .redirect-panel__phone-input {

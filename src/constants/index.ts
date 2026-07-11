@@ -1,5 +1,7 @@
 export { DEFAULT_LOCALE } from './defaultLocale'
+export { DEFAULT_COUNTRY_ISO2 } from './defaultCountryIso2'
 export { SUPPORTED_LOCALES } from './supportedLocales'
+export { COUNTRIES } from './countries'
 export { APP_NAME } from './appName'
 export { APP_VERSION_META_NAME } from './appVersionMetaName'
 export { SITE_URL } from './siteUrl'

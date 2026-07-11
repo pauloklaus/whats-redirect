@@ -19,7 +19,7 @@
     "github": "GitHub"
   },
   "aria": {
-    "countryCode": "Código de país",
+    "countrySelect": "País",
     "phoneNumber": "Número de teléfono"
   }
 }

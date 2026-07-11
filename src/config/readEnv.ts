@@ -16,8 +16,7 @@ export function readEnv(): AppEnv {
         import.meta.env.VITE_SITE_URL || 'https://whats.pauloklaus.com.br'
       ).replace(/\/$/, ''),
       whatsappUrlPrefix:
-        import.meta.env.VITE_WHATSAPP_URL_PREFIX ||
-        'https://wa.me/55',
+        import.meta.env.VITE_WHATSAPP_URL_PREFIX || 'https://wa.me/',
     }
   }
 
