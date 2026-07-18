@@ -8,12 +8,28 @@ import {
   findCountry,
   sortCountries,
   detectDefaultCountry,
+  readPhoneDigitsFromPath,
+  parseInternationalPhoneDigits,
 } from '@/utils'
 
+function readInitialPhoneFromPath(preferredIso2: string): {
+  iso2: string
+  localDigits: string
+} | null {
+  const digits = readPhoneDigitsFromPath(window.location.pathname)
+  if (!digits) return null
+  return parseInternationalPhoneDigits(digits, preferredIso2)
+}
+
 export function usePhoneInput() {
-  const countryIso2 = ref(detectDefaultCountry())
-  const phoneDisplay = ref('')
-  const phoneDigits = ref('')
+  const defaultIso2 = detectDefaultCountry()
+  const initial = readInitialPhoneFromPath(defaultIso2)
+
+  const countryIso2 = ref(initial?.iso2 ?? defaultIso2)
+  const phoneDigits = ref(initial?.localDigits ?? '')
+  const phoneDisplay = ref(
+    initial ? formatPhoneNumber(initial.localDigits, initial.iso2) : '',
+  )
 
   const sortedCountries = computed(() => sortCountries(COUNTRIES))
 

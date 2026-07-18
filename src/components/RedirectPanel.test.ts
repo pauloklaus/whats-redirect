@@ -102,6 +102,31 @@ describe('RedirectPanel', () => {
     })
   })
 
+  it('prefills phone input from path without redirecting', async () => {
+    const replace = vi.fn()
+    vi.stubGlobal('location', {
+      pathname: '/5549999999999',
+      href: '',
+      replace,
+    })
+
+    const wrapper = mountWithI18n(RedirectPanel)
+    await nextTick()
+
+    const select = wrapper.find('.redirect-panel__country-select')
+    const input = wrapper.find('.redirect-panel__phone-input')
+
+    expect((select.element as HTMLSelectElement).value).toBe('BR')
+    expect((input.element as HTMLInputElement).value).toBe('(49) 99999-9999')
+    expect(
+      wrapper.find('.redirect-panel__start').attributes('disabled'),
+    ).toBeUndefined()
+    expect(replace).not.toHaveBeenCalled()
+
+    wrapper.unmount()
+    vi.unstubAllGlobals()
+  })
+
   it('renders country select with options', () => {
     const wrapper = mountWithI18n(RedirectPanel)
 

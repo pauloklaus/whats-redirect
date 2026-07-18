@@ -1,6 +1,6 @@
 {
   "name": "whatsredirect",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Open-source WhatsApp redirect PWA built with Vue 3",
   "type": "module",
   "license": "MIT",
