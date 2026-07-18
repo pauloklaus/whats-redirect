@@ -9,7 +9,10 @@
     "description": "Alusta WhatsApp vestlusi ilma kontaktide salvestamiseta aadressiraamatusse.",
     "phoneLabel": "Telefoninumber",
     "phonePlaceholder": "Sisesta number",
-    "startChat": "Alusta vestlust"
+    "startChat": "Alusta vestlust",
+    "share": "Jaga",
+    "shareText": "Vestle numbriga {phone}",
+    "shareAriaLabel": "Jaga vestluslinki"
   },
   "install": {
     "button": "Installi",

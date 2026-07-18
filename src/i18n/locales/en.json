@@ -9,7 +9,10 @@
     "description": "Start WhatsApp chats without saving contacts to your address book.",
     "phoneLabel": "Phone number",
     "phonePlaceholder": "Enter phone number",
-    "startChat": "Start chat"
+    "startChat": "Start chat",
+    "share": "Share",
+    "shareText": "Chat with {phone}",
+    "shareAriaLabel": "Share chat link"
   },
   "install": {
     "button": "Install",

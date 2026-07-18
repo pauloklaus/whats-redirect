@@ -9,7 +9,10 @@
     "description": "Starten Sie WhatsApp-Chats, ohne Kontakte in Ihrem Adressbuch zu speichern.",
     "phoneLabel": "Telefonnummer",
     "phonePlaceholder": "Nummer eingeben",
-    "startChat": "Chat starten"
+    "startChat": "Chat starten",
+    "share": "Teilen",
+    "shareText": "Chatte mit {phone}",
+    "shareAriaLabel": "Chat-Link teilen"
   },
   "install": {
     "button": "Installieren",

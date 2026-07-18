@@ -9,7 +9,10 @@
     "description": "Permite iniciar conversaciones en WhatsApp sin necesidad de guardar contactos en tu agenda.",
     "phoneLabel": "Número de teléfono",
     "phonePlaceholder": "Ingresa el número",
-    "startChat": "Iniciar conversación"
+    "startChat": "Iniciar conversación",
+    "share": "Compartir",
+    "shareText": "Habla con {phone}",
+    "shareAriaLabel": "Compartir enlace del chat"
   },
   "install": {
     "button": "Instalar",

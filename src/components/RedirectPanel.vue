@@ -1,25 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { usePhoneInput, usePwaInstall } from '@/composables'
+import {
+  usePhoneInput,
+  usePhonePathRedirect,
+  usePwaInstall,
+  useShareChat,
+} from '@/composables'
 import { APP_NAME } from '@/config'
-import { countryFlag, getCountryName } from '@/utils'
+import { buildShareUrl, countryFlag, getCountryName } from '@/utils'
 import AppFooter from './AppFooter.vue'
 import ActionIcon from './ActionIcon.vue'
 import installIcon from '../assets/icons/install.svg'
 import chatIcon from '../assets/icons/chat.svg'
+import shareIcon from '../assets/icons/share.svg'
 
 const { t, locale } = useI18n()
 const {
   countryIso2,
   sortedCountries,
+  selectedCountry,
   phoneDisplay,
+  phoneDigits,
   isValid,
   updatePhone,
   setCountry,
   redirect,
 } = usePhoneInput()
 const { canInstall, install } = usePwaInstall()
+const { canShare, share } = useShareChat()
+usePhonePathRedirect()
 
 const countryKeyBuffer = ref('')
 let countryKeyTimeout: ReturnType<typeof setTimeout> | undefined
@@ -59,6 +69,16 @@ function onStartChat(): void {
   if (isValid.value) {
     redirect()
   }
+}
+
+async function onShare(): Promise<void> {
+  const country = selectedCountry.value
+  if (!isValid.value || !country) return
+
+  await share(
+    t('home.shareText', { phone: phoneDisplay.value }),
+    buildShareUrl(country.dialCode, phoneDigits.value),
+  )
 }
 </script>
 
@@ -134,6 +154,18 @@ function onStartChat(): void {
       >
         <ActionIcon :src="chatIcon" />
         <span>{{ t('home.startChat') }}</span>
+      </button>
+
+      <button
+        v-if="canShare"
+        class="redirect-panel__share redirect-panel__action-btn"
+        type="button"
+        :disabled="!isValid"
+        :aria-label="t('home.shareAriaLabel')"
+        @click="onShare"
+      >
+        <ActionIcon :src="shareIcon" />
+        <span>{{ t('home.share') }}</span>
       </button>
     </main>
 
@@ -313,6 +345,33 @@ function onStartChat(): void {
 }
 
 .redirect-panel__start:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.redirect-panel__share {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #128c7e;
+  background: #ffffff;
+  border: 2px solid #25d366;
+  border-radius: 0.5rem;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.redirect-panel__share :deep(.action-icon) {
+  filter: none;
+}
+
+.redirect-panel__share:hover:not(:disabled) {
+  background: #e8f5e9;
+}
+
+.redirect-panel__share:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
