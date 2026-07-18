@@ -9,14 +9,14 @@
     "description": "无需将联系人保存到通讯录，即可开启 WhatsApp 聊天。",
     "phoneLabel": "电话号码",
     "phonePlaceholder": "输入号码",
-    "startChat": "开始聊天"
+    "startChat": "开始聊天",
+    "share": "分享",
+    "shareText": "与 {phone} 聊天",
+    "shareAriaLabel": "分享聊天链接"
   },
   "install": {
     "button": "安装",
     "ariaLabel": "安装应用"
-  },
-  "footer": {
-    "github": "GitHub"
   },
   "aria": {
     "countrySelect": "国家/地区",

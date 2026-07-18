@@ -9,14 +9,14 @@
     "description": "Démarrez des conversations WhatsApp sans enregistrer de contacts dans votre répertoire.",
     "phoneLabel": "Numéro de téléphone",
     "phonePlaceholder": "Entrez le numéro",
-    "startChat": "Démarrer la conversation"
+    "startChat": "Démarrer la conversation",
+    "share": "Partager",
+    "shareText": "Discutez avec {phone}",
+    "shareAriaLabel": "Partager le lien de conversation"
   },
   "install": {
     "button": "Installer",
     "ariaLabel": "Installer l'application"
-  },
-  "footer": {
-    "github": "GitHub"
   },
   "aria": {
     "countrySelect": "Pays",

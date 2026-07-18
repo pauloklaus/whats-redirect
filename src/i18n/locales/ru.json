@@ -9,14 +9,14 @@
     "description": "Начинайте переписку в WhatsApp без сохранения контактов в записной книжке.",
     "phoneLabel": "Номер телефона",
     "phonePlaceholder": "Введите номер",
-    "startChat": "Начать чат"
+    "startChat": "Начать чат",
+    "share": "Поделиться",
+    "shareText": "Напишите {phone}",
+    "shareAriaLabel": "Поделиться ссылкой на чат"
   },
   "install": {
     "button": "Установить",
     "ariaLabel": "Установить приложение"
-  },
-  "footer": {
-    "github": "GitHub"
   },
   "aria": {
     "countrySelect": "Страна",

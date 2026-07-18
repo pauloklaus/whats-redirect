@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { APP_NAME, GITHUB_REPO_URL } from '@/config'
+import { APP_NAME } from '@/config'
 import { readLoadedAppVersion } from '@/utils'
 
-const { t } = useI18n()
 const appVersion = readLoadedAppVersion()
 </script>
 
@@ -14,18 +12,6 @@ const appVersion = readLoadedAppVersion()
     <template v-if="appVersion">
       <span class="app-footer__sep" aria-hidden="true">&bullet;</span>
       <span class="app-footer__version">v{{ appVersion }}</span>
-    </template>
-
-    <template v-if="GITHUB_REPO_URL">
-      <span class="app-footer__sep" aria-hidden="true">&bullet;</span>
-      <a
-        class="app-footer__link"
-        :href="GITHUB_REPO_URL"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {{ t('footer.github') }}
-      </a>
     </template>
   </footer>
 </template>
@@ -55,15 +41,5 @@ const appVersion = readLoadedAppVersion()
 
 .app-footer__sep {
   color: #bdbdbd;
-}
-
-.app-footer__link {
-  color: #757575;
-  text-decoration: none;
-  transition: color 0.15s;
-}
-
-.app-footer__link:hover {
-  color: #25d366;
 }
 </style>

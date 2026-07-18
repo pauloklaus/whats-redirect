@@ -9,14 +9,14 @@
     "description": "Avvia chat WhatsApp senza dover salvare i contatti nella rubrica.",
     "phoneLabel": "Numero di telefono",
     "phonePlaceholder": "Inserisci il numero",
-    "startChat": "Avvia chat"
+    "startChat": "Avvia chat",
+    "share": "Condividi",
+    "shareText": "Chatta con {phone}",
+    "shareAriaLabel": "Condividi link della chat"
   },
   "install": {
     "button": "Installa",
     "ariaLabel": "Installa app"
-  },
-  "footer": {
-    "github": "GitHub"
   },
   "aria": {
     "countrySelect": "Paese",

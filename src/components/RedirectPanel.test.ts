@@ -1,11 +1,10 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { mountWithI18n } from '@/test/mountWithI18n'
 import RedirectPanel from './RedirectPanel.vue'
 
 vi.mock('@/config', () => ({
   APP_NAME: 'WhatsRedirect',
-  GITHUB_REPO_URL: 'https://github.com/test/repo',
 }))
 
 vi.mock('@/constants', async (importOriginal) => {
@@ -13,6 +12,7 @@ vi.mock('@/constants', async (importOriginal) => {
   return {
     ...actual,
     WHATSAPP_URL_PREFIX: 'https://wa.me/',
+    SITE_URL: 'https://whats.example.com',
   }
 })
 
@@ -25,6 +25,10 @@ vi.mock('@/utils', async (importOriginal) => {
 })
 
 describe('RedirectPanel', () => {
+  afterEach(() => {
+    Reflect.deleteProperty(navigator, 'share')
+  })
+
   it('renders title and description', () => {
     const wrapper = mountWithI18n(RedirectPanel)
 
@@ -52,7 +56,7 @@ describe('RedirectPanel', () => {
   it('redirects on start button click', async () => {
     const locationSpy = vi
       .spyOn(window, 'location', 'get')
-      .mockReturnValue({ href: '' } as Location)
+      .mockReturnValue({ href: '', pathname: '/' } as Location)
 
     const wrapper = mountWithI18n(RedirectPanel)
 
@@ -63,6 +67,40 @@ describe('RedirectPanel', () => {
 
     expect(window.location.href).toBe('https://wa.me/5511999998888')
     locationSpy.mockRestore()
+  })
+
+  it('shows share button when navigator.share is available', async () => {
+    Object.defineProperty(navigator, 'share', {
+      value: vi.fn().mockResolvedValue(undefined),
+      configurable: true,
+      writable: true,
+    })
+
+    const wrapper = mountWithI18n(RedirectPanel)
+    await nextTick()
+
+    expect(wrapper.find('.redirect-panel__share').exists()).toBe(true)
+  })
+
+  it('shares chat link when share button is clicked', async () => {
+    const shareMock = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'share', {
+      value: shareMock,
+      configurable: true,
+      writable: true,
+    })
+
+    const wrapper = mountWithI18n(RedirectPanel)
+    await nextTick()
+
+    await wrapper.find('.redirect-panel__country-select').setValue('BR')
+    await wrapper.find('.redirect-panel__phone-input').setValue('49999999999')
+    await wrapper.find('.redirect-panel__share').trigger('click')
+
+    expect(shareMock).toHaveBeenCalledWith({
+      text: 'Chat with (49) 99999-9999',
+      url: 'https://whats.example.com/5549999999999',
+    })
   })
 
   it('renders country select with options', () => {

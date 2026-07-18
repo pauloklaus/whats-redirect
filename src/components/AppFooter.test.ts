@@ -4,7 +4,6 @@ import AppFooter from './AppFooter.vue'
 
 vi.mock('@/config', () => ({
   APP_NAME: 'WhatsRedirect',
-  GITHUB_REPO_URL: 'https://github.com/test/repo',
 }))
 
 vi.mock('@/utils', async (importOriginal) => {
@@ -16,16 +15,11 @@ vi.mock('@/utils', async (importOriginal) => {
 })
 
 describe('AppFooter', () => {
-  it('renders app name, version, and github link', () => {
+  it('renders app name and version', () => {
     const wrapper = mountWithI18n(AppFooter)
 
     expect(wrapper.text()).toContain('WhatsRedirect')
     expect(wrapper.text()).toContain('v0.1.0')
-    expect(wrapper.text()).toContain('GitHub')
-
-    const link = wrapper.find('a.app-footer__link')
-    expect(link.attributes('href')).toBe('https://github.com/test/repo')
-    expect(link.attributes('target')).toBe('_blank')
-    expect(link.attributes('rel')).toBe('noopener noreferrer')
+    expect(wrapper.find('a').exists()).toBe(false)
   })
 })

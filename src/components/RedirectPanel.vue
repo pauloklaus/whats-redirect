@@ -1,25 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { usePhoneInput, usePwaInstall } from '@/composables'
+import {
+  usePhoneInput,
+  usePhonePathRedirect,
+  usePwaInstall,
+  useShareChat,
+} from '@/composables'
 import { APP_NAME } from '@/config'
-import { countryFlag, getCountryName } from '@/utils'
+import { buildShareUrl, countryFlag, getCountryName } from '@/utils'
 import AppFooter from './AppFooter.vue'
 import ActionIcon from './ActionIcon.vue'
 import installIcon from '../assets/icons/install.svg'
 import chatIcon from '../assets/icons/chat.svg'
+import shareIcon from '../assets/icons/share.svg'
 
 const { t, locale } = useI18n()
 const {
   countryIso2,
   sortedCountries,
+  selectedCountry,
   phoneDisplay,
+  phoneDigits,
   isValid,
   updatePhone,
   setCountry,
   redirect,
 } = usePhoneInput()
 const { canInstall, install } = usePwaInstall()
+const { canShare, share } = useShareChat()
+usePhonePathRedirect()
 
 const countryKeyBuffer = ref('')
 let countryKeyTimeout: ReturnType<typeof setTimeout> | undefined
@@ -60,35 +70,39 @@ function onStartChat(): void {
     redirect()
   }
 }
+
+async function onShare(): Promise<void> {
+  const country = selectedCountry.value
+  if (!isValid.value || !country) return
+
+  await share(
+    t('home.shareText', { phone: phoneDisplay.value }),
+    buildShareUrl(country.dialCode, phoneDigits.value),
+  )
+}
 </script>
 
 <template>
   <div class="redirect-panel">
-    <header class="redirect-panel__header">
-      <div class="redirect-panel__brand">
-        <img
-          class="redirect-panel__logo"
-          src="/icons/apple-touch-icon.png"
-          width="36"
-          height="36"
-          :alt="APP_NAME"
-        />
-        <span class="redirect-panel__brand-name">{{ APP_NAME }}</span>
-      </div>
-
-      <button
-        v-if="canInstall"
-        class="redirect-panel__install redirect-panel__action-btn"
-        type="button"
-        :aria-label="t('install.ariaLabel')"
-        @click="install"
-      >
-        <ActionIcon :src="installIcon" />
-        <span>{{ t('install.button') }}</span>
-      </button>
-    </header>
+    <button
+      v-if="canInstall"
+      class="redirect-panel__install redirect-panel__action-btn"
+      type="button"
+      :aria-label="t('install.ariaLabel')"
+      @click="install"
+    >
+      <ActionIcon :src="installIcon" />
+      <span>{{ t('install.button') }}</span>
+    </button>
 
     <main class="redirect-panel__content">
+      <img
+        class="redirect-panel__logo"
+        src="/icons/apple-touch-icon.png"
+        width="72"
+        height="72"
+        :alt="APP_NAME"
+      />
       <h1 class="redirect-panel__title">{{ t('home.title') }}</h1>
       <p class="redirect-panel__description">{{ t('home.description') }}</p>
 
@@ -135,6 +149,18 @@ function onStartChat(): void {
         <ActionIcon :src="chatIcon" />
         <span>{{ t('home.startChat') }}</span>
       </button>
+
+      <button
+        v-if="canShare"
+        class="redirect-panel__share redirect-panel__action-btn"
+        type="button"
+        :disabled="!isValid"
+        :aria-label="t('home.shareAriaLabel')"
+        @click="onShare"
+      >
+        <ActionIcon :src="shareIcon" />
+        <span>{{ t('home.share') }}</span>
+      </button>
     </main>
 
     <AppFooter />
@@ -153,39 +179,16 @@ function onStartChat(): void {
   min-height: 100dvh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 4.5rem 1.5rem 2.75rem;
+  padding: 3.5rem 1.5rem 3.5rem;
   background: #f5f5f5;
   color: #1a1a1a;
 }
 
-.redirect-panel__header {
+.redirect-panel__install {
   position: fixed;
   top: 12px;
-  left: 12px;
+  right: 12px;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.redirect-panel__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-}
-
-.redirect-panel__logo {
-  display: block;
-  border-radius: 0.5rem;
-}
-
-.redirect-panel__brand-name {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.redirect-panel__install {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -217,8 +220,14 @@ function onStartChat(): void {
   gap: 1.5rem;
   width: 100%;
   max-width: 28rem;
-  margin-top: 2rem;
   text-align: center;
+}
+
+.redirect-panel__logo {
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 1rem;
 }
 
 .redirect-panel__title {
@@ -313,6 +322,33 @@ function onStartChat(): void {
 }
 
 .redirect-panel__start:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.redirect-panel__share {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #128c7e;
+  background: #ffffff;
+  border: 2px solid #25d366;
+  border-radius: 0.5rem;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.redirect-panel__share :deep(.action-icon) {
+  filter: none;
+}
+
+.redirect-panel__share:hover:not(:disabled) {
+  background: #e8f5e9;
+}
+
+.redirect-panel__share:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
