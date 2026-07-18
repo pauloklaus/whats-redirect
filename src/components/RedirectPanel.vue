@@ -75,10 +75,8 @@ async function onShare(): Promise<void> {
   const country = selectedCountry.value
   if (!isValid.value || !country) return
 
-  await share(
-    t('home.shareText', { phone: phoneDisplay.value }),
-    buildShareUrl(country.dialCode, phoneDigits.value),
-  )
+  const url = buildShareUrl(country.dialCode, phoneDigits.value)
+  await share(t('home.shareText', { phone: phoneDisplay.value, url }))
 }
 </script>
 

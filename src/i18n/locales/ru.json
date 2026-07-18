@@ -11,7 +11,7 @@
     "phonePlaceholder": "Введите номер",
     "startChat": "Начать чат",
     "share": "Поделиться",
-    "shareText": "Напишите {phone}",
+    "shareText": "Напишите {phone}\n\nИспользуйте ссылку ниже:\n{url}",
     "shareAriaLabel": "Поделиться ссылкой на чат"
   },
   "install": {

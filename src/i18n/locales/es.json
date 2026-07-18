@@ -11,7 +11,7 @@
     "phonePlaceholder": "Ingresa el número",
     "startChat": "Iniciar conversación",
     "share": "Compartir",
-    "shareText": "Habla con {phone}",
+    "shareText": "Habla con {phone}\n\nUsa el enlace abajo:\n{url}",
     "shareAriaLabel": "Compartir enlace del chat"
   },
   "install": {

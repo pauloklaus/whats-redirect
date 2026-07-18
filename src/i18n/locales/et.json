@@ -11,7 +11,7 @@
     "phonePlaceholder": "Sisesta number",
     "startChat": "Alusta vestlust",
     "share": "Jaga",
-    "shareText": "Vestle numbriga {phone}",
+    "shareText": "Vestle numbriga {phone}\n\nKasuta allolevat linki:\n{url}",
     "shareAriaLabel": "Jaga vestluslinki"
   },
   "install": {

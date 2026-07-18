@@ -98,8 +98,7 @@ describe('RedirectPanel', () => {
     await wrapper.find('.redirect-panel__share').trigger('click')
 
     expect(shareMock).toHaveBeenCalledWith({
-      text: 'Chat with (49) 99999-9999',
-      url: 'https://whats.example.com/5549999999999',
+      text: 'Chat with (49) 99999-9999\n\nUse the link below:\nhttps://whats.example.com/5549999999999',
     })
   })
 

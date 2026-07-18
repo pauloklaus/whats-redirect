@@ -7,11 +7,11 @@ export function useShareChat() {
     canShare.value = typeof navigator.share === 'function'
   })
 
-  async function share(text: string, url: string): Promise<void> {
+  async function share(text: string): Promise<void> {
     if (!canShare.value) return
 
     try {
-      await navigator.share({ text, url })
+      await navigator.share({ text })
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') return
       throw error
