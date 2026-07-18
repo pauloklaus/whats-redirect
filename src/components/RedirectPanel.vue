@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import {
-  usePhoneInput,
-  usePhonePathRedirect,
-  usePwaInstall,
-  useShareChat,
-} from '@/composables'
+import { usePhoneInput, usePwaInstall, useShareChat } from '@/composables'
 import { APP_NAME } from '@/config'
 import { buildShareUrl, countryFlag, getCountryName } from '@/utils'
 import AppFooter from './AppFooter.vue'
@@ -29,7 +24,6 @@ const {
 } = usePhoneInput()
 const { canInstall, install } = usePwaInstall()
 const { canShare, share } = useShareChat()
-usePhonePathRedirect()
 
 const countryKeyBuffer = ref('')
 let countryKeyTimeout: ReturnType<typeof setTimeout> | undefined
