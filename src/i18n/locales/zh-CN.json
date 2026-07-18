@@ -18,9 +18,6 @@
     "button": "安装",
     "ariaLabel": "安装应用"
   },
-  "footer": {
-    "github": "GitHub"
-  },
   "aria": {
     "countrySelect": "国家/地区",
     "phoneNumber": "电话号码"

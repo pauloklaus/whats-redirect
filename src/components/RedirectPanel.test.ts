@@ -5,7 +5,6 @@ import RedirectPanel from './RedirectPanel.vue'
 
 vi.mock('@/config', () => ({
   APP_NAME: 'WhatsRedirect',
-  GITHUB_REPO_URL: 'https://github.com/test/repo',
 }))
 
 vi.mock('@/constants', async (importOriginal) => {

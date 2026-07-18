@@ -84,31 +84,25 @@ async function onShare(): Promise<void> {
 
 <template>
   <div class="redirect-panel">
-    <header class="redirect-panel__header">
-      <div class="redirect-panel__brand">
-        <img
-          class="redirect-panel__logo"
-          src="/icons/apple-touch-icon.png"
-          width="36"
-          height="36"
-          :alt="APP_NAME"
-        />
-        <span class="redirect-panel__brand-name">{{ APP_NAME }}</span>
-      </div>
-
-      <button
-        v-if="canInstall"
-        class="redirect-panel__install redirect-panel__action-btn"
-        type="button"
-        :aria-label="t('install.ariaLabel')"
-        @click="install"
-      >
-        <ActionIcon :src="installIcon" />
-        <span>{{ t('install.button') }}</span>
-      </button>
-    </header>
+    <button
+      v-if="canInstall"
+      class="redirect-panel__install redirect-panel__action-btn"
+      type="button"
+      :aria-label="t('install.ariaLabel')"
+      @click="install"
+    >
+      <ActionIcon :src="installIcon" />
+      <span>{{ t('install.button') }}</span>
+    </button>
 
     <main class="redirect-panel__content">
+      <img
+        class="redirect-panel__logo"
+        src="/icons/apple-touch-icon.png"
+        width="72"
+        height="72"
+        :alt="APP_NAME"
+      />
       <h1 class="redirect-panel__title">{{ t('home.title') }}</h1>
       <p class="redirect-panel__description">{{ t('home.description') }}</p>
 
@@ -185,39 +179,16 @@ async function onShare(): Promise<void> {
   min-height: 100dvh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 4.5rem 1.5rem 2.75rem;
+  padding: 3.5rem 1.5rem 3.5rem;
   background: #f5f5f5;
   color: #1a1a1a;
 }
 
-.redirect-panel__header {
+.redirect-panel__install {
   position: fixed;
   top: 12px;
-  left: 12px;
+  right: 12px;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.redirect-panel__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-}
-
-.redirect-panel__logo {
-  display: block;
-  border-radius: 0.5rem;
-}
-
-.redirect-panel__brand-name {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.redirect-panel__install {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -249,8 +220,14 @@ async function onShare(): Promise<void> {
   gap: 1.5rem;
   width: 100%;
   max-width: 28rem;
-  margin-top: 2rem;
   text-align: center;
+}
+
+.redirect-panel__logo {
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 1rem;
 }
 
 .redirect-panel__title {

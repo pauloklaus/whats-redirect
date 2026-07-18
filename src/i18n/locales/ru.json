@@ -18,9 +18,6 @@
     "button": "Установить",
     "ariaLabel": "Установить приложение"
   },
-  "footer": {
-    "github": "GitHub"
-  },
   "aria": {
     "countrySelect": "Страна",
     "phoneNumber": "Номер телефона"
