@@ -37,18 +37,19 @@ describe('useShareChat', () => {
     wrapper.unmount()
   })
 
-  it('calls navigator.share with text and url', async () => {
+  it('calls navigator.share with text', async () => {
     const shareMock = vi.fn().mockResolvedValue(undefined)
     vi.stubGlobal('navigator', { share: shareMock })
 
     const wrapper = mount(TestHost)
     await nextTick()
 
-    await wrapper.vm.share('Chat with 49999', 'https://whats.example.com/5549')
+    await wrapper.vm.share(
+      'Chat with 49999\n\nUse the link below:\nhttps://whats.example.com/5549',
+    )
 
     expect(shareMock).toHaveBeenCalledWith({
-      text: 'Chat with 49999',
-      url: 'https://whats.example.com/5549',
+      text: 'Chat with 49999\n\nUse the link below:\nhttps://whats.example.com/5549',
     })
     wrapper.unmount()
   })
@@ -63,7 +64,9 @@ describe('useShareChat', () => {
     await nextTick()
 
     await expect(
-      wrapper.vm.share('Chat with 49999', 'https://whats.example.com/5549'),
+      wrapper.vm.share(
+        'Chat with 49999\n\nUse the link below:\nhttps://whats.example.com/5549',
+      ),
     ).resolves.toBeUndefined()
     wrapper.unmount()
   })

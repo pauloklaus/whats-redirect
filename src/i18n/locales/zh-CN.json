@@ -11,7 +11,7 @@
     "phonePlaceholder": "输入号码",
     "startChat": "开始聊天",
     "share": "分享",
-    "shareText": "与 {phone} 聊天",
+    "shareText": "与 {phone} 聊天\n\n使用下面的链接：\n{url}",
     "shareAriaLabel": "分享聊天链接"
   },
   "install": {
